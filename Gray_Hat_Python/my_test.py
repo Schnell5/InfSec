@@ -12,7 +12,7 @@ debugger.attach(pid)
 list_threads = debugger.enumerate_threads()
 
 # For each thread in the list we want to grab the
-# value of each of the registers
+# value of each of the registers.
 
 for thread in list_threads:
     
