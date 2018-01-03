@@ -4,7 +4,7 @@ Created on 3 янв. 2018 г.
 @author: ekantysev
 '''
 
-print('Hello World!!!')
+print('Hello World!')
 
 def main():
     pass
