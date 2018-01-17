@@ -8,26 +8,26 @@ replist = range(reps)
 def forLoop():
     res = []
     for x in replist:
-        res.append(abs(x))
+        res.append(x + 10)
     return res
 
 
 def listComp():
-    return [abs(x) for x in replist]
+    return [x + 10 for x in replist]
 
 
 def mapCall():
-    return list(map(abs, replist))
+    return list(map(lambda x: x + 10, replist))
 
 
 def genExpr():
-    return list(abs(x) for x in replist)
+    return list(x + 10 for x in replist)
 
 
 def genFunc():
     def gen():
         for x in replist:
-            yield abs(x)
+            yield x + 10
     return list(gen())
 
 
