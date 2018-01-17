@@ -4,7 +4,7 @@ Counting the time on the function
 
 import time
 
-reps = 1000
+reps = 10000
 replist = range(reps)
 
 
