@@ -1,7 +1,7 @@
 import mytimer
 import sys
 
-reps = 1000
+reps = 10000
 replist = range(reps)
 
 
