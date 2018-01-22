@@ -1,5 +1,12 @@
 '''
 Reload all modules recursively
+
+Usage:
+
+import reloadall
+
+reload_all(<module_name>)
+
 '''
 
 import types
