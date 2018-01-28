@@ -26,6 +26,14 @@ Output example:
             __module__ = <>
             __weakref__ = <>
             meth1 = <function Super.meth1 at 0x1038ff1e0>
+
+............<Class object, address 4305020672:
+                __class__ = <>
+                __delattr__ = <>
+                __dir__ = <>
+                __doc__ = <>
+                <...>
+............>
 ........>
 ....>
 """
