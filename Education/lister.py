@@ -79,3 +79,17 @@ class ListTree:
             else:
                 result += spaces + '{0} = {1}\n'.format(attr, getattr(obj, attr))
         return result
+
+
+if __name__ == '__main__':
+
+    class Super: pass
+
+    class Sup(Super): pass
+
+    class Lol: pass
+
+    class Sub(ListTree, Sup, Lol): pass
+
+    instance = Sub()
+    print(instance)
