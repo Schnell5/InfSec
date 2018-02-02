@@ -1,7 +1,7 @@
 """
 Auxiliary class to print information about other classes that inherit this class
 
-Usage: class <ClassName>(ListTree): ..
+Usage: class <ClassName>(ListTree): ...
        instance = <ClassName>()
        print(instance)
 
