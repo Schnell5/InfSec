@@ -52,7 +52,7 @@ class CardHolder:
                                                             # and will perform 'obj.remain = value' somewhere in the
                                                             # __main__ section of the code the instance of the
                                                             # class CardHolder will get it's own remain attribute
-                                                            # (at the instance level) and Remain() descriptor wont work
+                                                            # (at the instance level) and Remain() descriptor won't work
                                                             # for this instance.
     remain = Remain()
 
