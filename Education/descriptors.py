@@ -36,7 +36,7 @@ class CardHolder:
 
         def __set__(self, instance, value):
             value = value.replace('-', '')
-            if len(value) < instance.acctlen:
+            if len(value) != instance.acctlen:
                 raise TypeError('invalid acct number')
             else:
                 self.acct = value

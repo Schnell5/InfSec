@@ -32,7 +32,7 @@ class CardHolder:
 
     def setAcct(self, value):
         value = value.replace('-', '')
-        if len(value) < self.acctlen:
+        if len(value) != self.acctlen:
             raise TypeError('invalid acct number')
         else:
             self.__acct = value
