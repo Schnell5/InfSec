@@ -4,7 +4,7 @@ class CardHolder:
 
     def __init__(self, acct, name, age, addr):
         self.acct = acct
-        self.name = name
+        self.name = name                            # Call setName()
         self.age = age
         self.addr = addr
 
@@ -13,7 +13,8 @@ class CardHolder:
 
     def setName(self, value):
         value = value.lower().replace(' ', '_')
-        self.__name = value
+        self.__name = value                         # Attach to the instance by using obj.__X syntax to get the
+                                                    # unique name (since we don't have another object to attach to)
     name = property(getName, setName)
 
     def getAge(self):
