@@ -8,6 +8,9 @@ attributes. All other attributes (if any) are private and cannot be gotten and s
 Private decorator works vice versa.
 Example: @private('data', 'size') - set and get operations will prohibited for attributes 'data' and
 'size'. All other attributes (if any) are public and can be gotten and set.
+
+P.S. Run this file with -O key to prevent decoration:
+#>>> python3 -O public_private_dec.py
 """
 
 
@@ -21,25 +24,28 @@ def tracer(*args):
 
 def accessControl(failif):
     def onDecorator(aClass):
-        class OnInstance:
-            def __init__(self, *args, **kwargs):
-                self.__wrapped = aClass(*args, **kwargs)
+        if not __debug__:
+            return aClass
+        else:
+            class OnInstance:
+                def __init__(self, *args, **kwargs):
+                    self.__wrapped = aClass(*args, **kwargs)
 
-            def __getattr__(self, attr):
-                tracer('get:', attr)
-                if failif(attr):
-                    raise TypeError('private attribute fetch ' + attr)
-                else:
-                    return getattr(self.__wrapped, attr)
+                def __getattr__(self, attr):
+                    tracer('get:', attr)
+                    if failif(attr):
+                        raise TypeError('private attribute fetch ' + attr)
+                    else:
+                        return getattr(self.__wrapped, attr)
 
-            def __setattr__(self, attr, value):
-                tracer('set:', attr, value)
-                if attr == '_OnInstance__wrapped':
-                    self.__dict__[attr] = value
-                elif failif(attr):
-                    raise TypeError('private attribute change ' + attr)
-                else:
-                    setattr(self.__wrapped, attr, value)
+                def __setattr__(self, attr, value):
+                    tracer('set:', attr, value)
+                    if attr == '_OnInstance__wrapped':
+                        self.__dict__[attr] = value
+                    elif failif(attr):
+                        raise TypeError('private attribute change ' + attr)
+                    else:
+                        setattr(self.__wrapped, attr, value)
 
         return OnInstance
 
@@ -83,6 +89,8 @@ print(y.label)
 y.display(); y.double()
 y.label = 'Spam'
 y.display()
+
+print(x.size())
 
 # This part will raise exceptions for @private decorator
 '''
