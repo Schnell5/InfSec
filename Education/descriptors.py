@@ -10,36 +10,34 @@ class CardHolder:
 
     class Name:
         def __get__(self, instance, owner):
-            return self.name
+            return instance._name
 
         def __set__(self, instance, value):
             value = value.lower().replace(' ', '_')
-            self.name = value                           # Attach to the descriptor object (instance of the class Name)
-                                                        # (not to the instance of CardHolder). That's why we shouldn't
-                                                        # use obj.__X syntax
+            instance._name = value
     name = Name()
 
     class Age:
         def __get__(self, instance, owner):
-            return self.age
+            return instance._age
 
         def __set__(self, instance, value):
             if value < 0 or value > 130:
                 raise ValueError('invalid age')
             else:
-                self.age = value
+                instance._age = value
     age = Age()
 
     class Acct:
         def __get__(self, instance, owner):
-            return self.acct[:-3] + '***'
+            return instance._acct[:-3] + '***'
 
         def __set__(self, instance, value):
             value = value.replace('-', '')
             if len(value) != instance.acctlen:
                 raise TypeError('invalid acct number')
             else:
-                self.acct = value
+                instance._acct = value
     acct = Acct()
 
     class Remain:
@@ -51,7 +49,7 @@ class CardHolder:
                                                             # the class CardHolder. If we won't use __set__ method here
                                                             # and will perform 'obj.remain = value' somewhere in the
                                                             # __main__ section of the code the instance of the
-                                                            # class CardHolder will get it's own remain attribute
+                                                            # class CardHolder will get it's own 'remain' attribute
                                                             # (at the instance level) and Remain() descriptor won't work
                                                             # for this instance.
     remain = Remain()
@@ -67,6 +65,8 @@ if __name__ == '__main__':
 
     sue = CardHolder('5678-12-34', 'Sue Jones', 35, '124 main st')
     print(sue.acct, sue.name, sue.remain, sue.addr, sep=' / ')
+    print(bob.name, bob.acct, bob.age)
+    print(sue.name, sue.acct, sue.age)
 
     try:
         sue.age = 200
