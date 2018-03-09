@@ -41,7 +41,7 @@ allsizes = []
 for (thisdir, subshere, fileshere) in os.walk(dirname):
     if trace: tryprint(thisdir)
     thisdir = os.path.normpath(thisdir)
-    fixname = os.path.normpath(thisdir)
+    fixname = os.path.normcase(thisdir)
     if fixname in visited:
         if trace: tryprint('skipping ' + thisdir)
     else:
