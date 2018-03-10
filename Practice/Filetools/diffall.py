@@ -1,6 +1,6 @@
 """
 Compares two directories and it's subdirectories to find differences. Also compares content of files
-with identical names to be sure these files identical.
+with identical names to be sure these files are identical.
 
 Usage:
 > python difall.py dir1 dir2
