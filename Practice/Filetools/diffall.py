@@ -52,19 +52,23 @@ def comparetrees(dir1, dir2, diffs, verbose=False):
         path2 = os.path.join(dir2, name)
         if os.path.isfile(path1) and os.path.isfile(path2):
             missed.remove(name)
-            file1 = open(path1, 'rb')
-            file2 = open(path2, 'rb')
-            while True:
-                bytes1 = file1.read(blocksize)
-                bytes2 = file2.read(blocksize)
-                if (not bytes1) and (not bytes2):
-                    if verbose:
-                        print(name, 'matches')
-                    break
-                if bytes1 != bytes2:
-                    print(name, 'DIFFERS')
-                    diffs.append('files differ at {0} - {1}'.format(path1, path2))
-                    break
+            if os.path.getsize(path1) != os.path.getsize(path2):
+                print(name, 'DIFFERS BY SIZE')
+                diffs.append('files differ at {0} - {1}'.format(path1, path2))
+            else:
+                file1 = open(path1, 'rb')
+                file2 = open(path2, 'rb')
+                while True:
+                    bytes1 = file1.read(blocksize)
+                    bytes2 = file2.read(blocksize)
+                    if (not bytes1) and (not bytes2):
+                        if verbose:
+                            print(name, 'matches')
+                        break
+                    if bytes1 != bytes2:
+                        print(name, 'DIFFERS')
+                        diffs.append('files differ at {0} - {1}'.format(path1, path2))
+                        break
 
     for name in common:
         path1 = os.path.join(dir1, name)
