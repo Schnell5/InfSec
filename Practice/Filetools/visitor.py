@@ -1,3 +1,16 @@
+"""
+Usage:
+> python visitor.py code startdir [string]
+
+codes:
+1 - list directories and files in startdir
+2 - search string in files
+3 - 1 + 2
+
+Example:
+> python visitor.py 2 C:\Test findme
+"""
+
 import os
 import sys
 
