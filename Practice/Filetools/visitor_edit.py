@@ -17,7 +17,7 @@ class EditVisitor(SearchVisitor):
     editor = 'notepad.exe' if sys.platform.startswith('win') else 'vim'
 
     def visitmatch(self, fname, text):
-        os.system('{0} {1}'.format(self.editor, fname))      # Runs the editor - hold the main process. When
+        os.system('{0} {1}'.format(self.editor, fname))      # Runs the editor - holds the main process. When
                                                              # the editor will be closed the main process will continue
 
 
