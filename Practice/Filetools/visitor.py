@@ -13,7 +13,7 @@ class FileVisitor:
         if reset:
             self.reset()
         for (thisdir, subshere, fileshere) in os.walk(startdir):
-            self.visitfile(thisdir)
+            self.visitdir(thisdir)
             for fname in fileshere:
                 filepath = os.path.join(thisdir, fname)
                 self.visitfile(filepath)
