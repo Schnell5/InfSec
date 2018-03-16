@@ -5,7 +5,7 @@ from quitter import Quitter
 
 class Demo(Frame):
     def __init__(self, parent=None, **options):
-        Frame.__init__(self)
+        Frame.__init__(self, parent, **options)
         self.pack()
         Label(self, text='Basic demos').pack()
         for (key, value) in demos.items():
