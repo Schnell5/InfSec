@@ -20,7 +20,7 @@ class NewMenuDemo(Frame):
 
     def makeToolBar(self):
         toolbar = Frame(self, cursor='hand2', relief=SUNKEN, bd=2)
-        toolbar.pack(fill=X, side=BOTTOM, expand=YES)
+        toolbar.pack(fill=X, side=BOTTOM)
         Button(toolbar, text='Hello', command=self.greeting).pack(side=LEFT)
         Button(toolbar, text='Quit', command=self.quiter).pack(side=RIGHT)
 
