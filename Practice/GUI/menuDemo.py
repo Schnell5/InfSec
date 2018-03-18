@@ -41,6 +41,9 @@ class NewMenuDemo(Frame):
         pulldown = Menu(self.menubar, tearoff=False)
         pulldown.add_command(label='Paste', command=self.notdone)
         pulldown.add_command(label='Spam', command=self.greeting)
+        pulldown.add_separator()
+        pulldown.add_command(label='Delete', command=self.greeting)
+        pulldown.entryconfigure(3, state=DISABLED)
         self.menubar.add_cascade(label='Edit', menu=pulldown, underline=0)
 
     def imageMenu(self):
