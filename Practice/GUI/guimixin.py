@@ -27,6 +27,9 @@ class GuiMixin:
         self.infobox('Help', 'See figure 1')
 
     def selectOpenFile(self, file="", direct="."):
+        return askopenfilename(initialfile=file, initialdir=direct)
+
+    def selectSaveFile(self, file="", direct="."):
         return asksaveasfilename(initialfile=file, initialdir=direct)
 
     def clone(self, args=()):
