@@ -69,13 +69,13 @@ class GuiInput:
         return lines
 
 
-def redirectedGuiFunc(func, *pargs, **kwargs):
+def redirectedGuiFunc(func, *args, **kwargs):
     import sys
     saveStreams = sys.stdin, sys.stdout
     sys.stdin = GuiInput()
     sys.stdout = GuiOutput()
     sys.stderr = sys.stdout
-    result = func(*pargs, **kwargs)
+    result = func(*args, **kwargs)
     sys.stdin, sys.stdout = saveStreams
     return result
 
