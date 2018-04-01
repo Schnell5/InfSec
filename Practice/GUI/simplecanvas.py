@@ -6,7 +6,7 @@ trace = False
 
 class CanvasDraw:
     def __init__(self, parent=None):
-        canvas = Canvas(width=700, height=700, bg='beige')
+        canvas = Canvas(parent, width=700, height=700, bg='beige')
         canvas.pack()
         canvas.bind('<ButtonPress-1>', self.onStart)
         canvas.bind('<B1-Motion>', self.onGrow)
