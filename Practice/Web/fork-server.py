@@ -16,6 +16,7 @@ def now():
     return time.ctime(time.time())
 
 
+# For zombie-processes deleting
 def reapChildren():
     while activeChildren:
         pid, stat = os.waitpid(0, os.WNOHANG)
