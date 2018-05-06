@@ -32,7 +32,7 @@ class Morse:
                 result = '0' * (32 - len(result)) + result
             return result
 
-    # @classmethod
+    # @classmethod                                      # For Python 2.X
     # def translate(cls, word):
     #     newword = ''
     #     for char in word:
@@ -60,7 +60,7 @@ class Morse:
         words = [word.translate(table) for word in words]   # Translate every word
         # words = [cls.translate(word) for word in words]
         # print(words)
-        result = '0000000'.join(words)                      # Joint translated words by using 7 zeroes
+        result = '0000000'.join(words)                      # Join translated words by using 7 zeroes
         while result:
             block, result = result[:32], result[32:]
             if block != 32:
