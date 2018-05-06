@@ -1,3 +1,21 @@
+"""
+Each Morse code character is represented by a series of "dots" and "dashes". In binary,
+a dot is a single bit (1) and a dash is three bits (111). Between each dot or dash
+within a single character, we place a single zero bit. (I.e. "dot dash" would become 10111.)
+Separate characters are separated by three zero bits (000). Words are spearated by a single
+space, which is represented by 7 zero bits (0000000).
+
+The first method Morse.encode will take a String representing the message and will return an
+array of signed 32-bit integers in big-endian order and in two's complement format.
+(Note: This is the standard format for numbers returned by JavaScript bitwise operators.)
+Since it is possible that the Morse encoded message will not align perfectly with
+the binary 32-bit numbers, all unused bits are to be padded with 0's.
+
+The second method Morse.decode will take an array of numbers and return the String representation
+of the message.
+"""
+
+
 class Morse:
     @staticmethod
     def bytes_converter(data):
