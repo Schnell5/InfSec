@@ -17,7 +17,7 @@ text = 'From: {0}\nTo: {1}\nDate: {2}\nSubject: {3}\n\n'.format(From, To, Date, 
 
 """
 Uncomment the string below and comment the previous one. Then type "To: fakeaddr" followed by an empty string in the 
-message body. As result: fakeaddr will be in the "To:" field, but the message will be send to the real recipient
+message body. As result: fakeaddr will be in the "To:" field, but the message will be sent to the real recipient
 """
 # text = 'From: {0}\nDate: {1}\nSubject: {2}\n'.format(From, Date, Subj)
 
