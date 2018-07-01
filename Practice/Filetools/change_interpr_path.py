@@ -1,3 +1,13 @@
+"""
+Script for changing interpreter path in .py files for Unix/Linux
+
+Usage:
+>> python3 change_interpr_path.py [-R] [dirname]
+
+-R - key for recursive files changing
+dirname - initial directory where start changing (default = '.')
+"""
+
 import sys
 import os
 
