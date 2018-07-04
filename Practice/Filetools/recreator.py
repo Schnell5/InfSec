@@ -1,7 +1,7 @@
 """
 [*] Issue: Some files can't run successfully by web server on Unix/Linux
-if these files was written on Windows (looks like there is some endline chars
-representation issue). As result webserver will return the error like this one:
+if these files were written on Windows (looks like there is some endline chars
+representation issue). As result web server will return the error like this one:
 "FileNotFoundError: [Errno 2] No such file or directory: <full_path_to_file>"
 even if the directory actually exists.
 
