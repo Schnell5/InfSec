@@ -12,7 +12,11 @@ even if the directory actually exists.
 import sys
 import os
 
-orig_file = sys.argv[1]
+if len(sys.argv) > 1:
+    print(len(sys.argv))
+    orig_file = sys.argv[1]
+else:
+    sys.exit(0)
 orig_file_path = os.path.abspath(orig_file)
 print('[*] Original file:', orig_file_path)
 path = os.path.split(orig_file_path)[0]
@@ -24,9 +28,9 @@ if input('Create? [Y/N]: ') in 'Yy':
     new_file.close()
     if input('Set 755 permissions? [Y/N]: ') in 'Yy':
         os.system('chmod 755 {}'.format(new_file_path))
-        print('Permissions 755 was set')
+        print('Permissions 755 have been set')
     else:
-        print('Permissions setting was canceled')
+        print('Permissions setting canceled')
 else:
     print('Canceled')
     sys.exit(0)
