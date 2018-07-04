@@ -16,7 +16,6 @@ orig_file = sys.argv[1]
 orig_file_path = os.path.abspath(orig_file)
 print('[*] Original file:', orig_file_path)
 path = os.path.split(orig_file_path)[0]
-savedir = os.path.curdir
 new_file_path = os.path.splitext(orig_file_path)[0] + '_new' + os.path.splitext(orig_file_path)[1]
 print('[*] New file:', new_file_path)
 if input('Create? [Y/N]: ') in 'Yy':
