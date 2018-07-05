@@ -7,24 +7,44 @@ even if the directory actually exists.
 
 [*] Solution: re-create such files on Unix/Linux and set the necessary permissions
 
-[*] Usage: > python3 recreator.py <file_to_recreate> """
+[*] Usage: > python3 recreator.py [-r] <file_to_recreate>
+    -r - replace original file
+"""
 
 import sys
 import os
 
-if len(sys.argv) > 1:
-    print(len(sys.argv))
+replace = False  # Replace flag
+
+
+# Parse arguments
+if len(sys.argv) == 3:
+    if sys.argv[1].lower() == '-r':
+        replace = True
+    orig_file = sys.argv[2]
+elif len(sys.argv) == 2:
     orig_file = sys.argv[1]
 else:
     sys.exit(0)
+
+# Make absolute path to original file;
+# Remember path excluding filename
 orig_file_path = os.path.abspath(orig_file)
 print('[*] Original file:', orig_file_path)
 path = os.path.split(orig_file_path)[0]
-new_file_path = os.path.splitext(orig_file_path)[0] + '_new' + os.path.splitext(orig_file_path)[1]
-print('[*] New file:', new_file_path)
+
+# Form new file name
+if not replace:
+    new_file_path = os.path.splitext(orig_file_path)[0] + '_new' + os.path.splitext(orig_file_path)[1]
+else:
+    new_file_path = orig_file_path
+print('[*] New file:     ', new_file_path)
+
+# Recreation (with optional permissions setting)
 if input('Create? [Y/N]: ') in 'Yy':
+    orig_text = open(orig_file_path, 'r').read()
     new_file = open(new_file_path, 'w')
-    new_file.write(open(orig_file_path, 'r').read())
+    new_file.write(orig_text)
     new_file.close()
     if input('Set 755 permissions? [Y/N]: ') in 'Yy':
         os.system('chmod 755 {}'.format(new_file_path))
