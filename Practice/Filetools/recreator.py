@@ -27,11 +27,9 @@ elif len(sys.argv) == 2:
 else:
     sys.exit(0)
 
-# Make absolute path to original file;
-# Remember path excluding filename
+# Make absolute path to original file
 orig_file_path = os.path.abspath(orig_file)
 print('[*] Original file:', orig_file_path)
-path = os.path.split(orig_file_path)[0]
 
 # Form new file name
 if not replace:
