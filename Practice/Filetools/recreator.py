@@ -27,7 +27,7 @@ elif len(sys.argv) == 2:
 else:
     sys.exit(0)
 
-# Make absolute path to original file
+# Make an absolute path to original file
 orig_file_path = os.path.abspath(orig_file)
 print('[*] Original file:', orig_file_path)
 
@@ -40,15 +40,20 @@ print('[*] New file:     ', new_file_path)
 
 # Recreation (with optional permissions setting)
 if input('Create? [Y/N]: ') in 'Yy':
-    orig_text = open(orig_file_path, 'r').read()
-    new_file = open(new_file_path, 'w')
-    new_file.write(orig_text)
-    new_file.close()
-    if input('Set 755 permissions? [Y/N]: ') in 'Yy':
-        os.system('chmod 755 {}'.format(new_file_path))
-        print('Permissions 755 have been set')
-    else:
-        print('Permissions setting canceled')
+    try:
+        orig_text = open(orig_file_path, 'r').read()
+        new_file = open(new_file_path, 'w')
+        new_file.write(orig_text)
+        new_file.close()
+    except IsADirectoryError as err:
+        print(err)
+        sys.exit(1)
+    if not sys.platform.startswith('win'):                  # If Unix/Linux
+        if input('Set 755 permissions? [Y/N]: ') in 'Yy':
+            os.system('chmod 755 {}'.format(new_file_path))
+            print('Permissions 755 have been set')
+        else:
+            print('Permissions setting canceled')
 else:
     print('Canceled')
     sys.exit(0)
