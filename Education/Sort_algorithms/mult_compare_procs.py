@@ -1,6 +1,6 @@
 """
 Compare multiple different sorting functions with each other.
-Executes each function in a separate processes and uses the same arrays
+Executes each function in a separate process and uses the same arrays
 in all cases.
 """
 
