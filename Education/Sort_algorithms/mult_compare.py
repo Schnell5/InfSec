@@ -2,19 +2,24 @@
 Compare multiple different sorting functions with each other.
 Executes each function in a separate thread and uses the same arrays
 in all cases.
+
+Caveat: because of Python's GIL this script gives incorrect results (the returning sort time
+for each case is bigger than it really is).
 """
 
 import threading
 import queue
 from time import time
+import copy
 from auxiliary import create_array
 
 """
 Import your sort functions below
 """
-# Function to test
+# Functions to test
 from bubble import bubble_sort
 from selection_sort import selection_sort
+from selection_sort import selection_sort_new
 from insertion_sort import insertion_sort
 
 dataqueue = queue.Queue(maxsize=0)
@@ -37,8 +42,18 @@ def output(res_list, n):
 
 # Calculate result in threads
 def calculate(name, func, arrlist):
-    # print('Thread:', threading.current_thread())
-    for i, arr in enumerate(arrlist):
+    #print('Thread:', threading.current_thread())
+
+    # Without this deepcopy it will be the list of already sorted arrays.
+    # We could use my_arr = arrlist[:] but the lists inside arrlist
+    # will be the same objects for each thread.
+    # >>> lone = [[1, 2, 3], [5, 6, 7], [5, 5, 5]]
+    # >>> ltwo = lone[:]
+    # >>> lone is ltwo => False
+    # >>> lone[1] is ltwo[1] => True (incorrect in our case)
+    my_arr = copy.deepcopy(arrlist)
+
+    for i, arr in enumerate(my_arr):
         t0 = time()
         func(arr)
         t1 = time()
@@ -46,7 +61,7 @@ def calculate(name, func, arrlist):
 
 
 def mult_compare(funclist=[(),], n=[10, 100, 1000, 10000]):
-    funclist.append(('Built-In', sorted))                   # Append Built-In sorting func
+    funclist.append(('Built-In', sorted))                   # Append Built-In sorted func
     res_list = {name: [] for name, func in funclist}        # List of results
     threads = []                                            # List of active threads
     arrlist = [create_array(i, i) for i in n]               # List of arrays
@@ -75,6 +90,7 @@ def mult_compare(funclist=[(),], n=[10, 100, 1000, 10000]):
 if __name__ == '__main__':
     funclist = [('Bubble', bubble_sort),
                 ('Selection', selection_sort),
+                ('Selec_new', selection_sort_new),
                 ('Insertion', insertion_sort)]
 
     mult_compare(funclist)
