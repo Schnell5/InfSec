@@ -1,16 +1,13 @@
 """
 Compare multiple different sorting functions with each other.
-Executes each function in a separate thread and uses the same arrays
+Executes each function in a separate process and uses the same arrays
 in all cases.
-
-Caveat: because of Python's GIL this script gives incorrect results (the returning sort time
-for each case is bigger than it really is).
 """
 
-import threading
+import multiprocessing as mp
 import queue
-from time import time
 import copy
+from time import time
 from auxiliary import create_array
 
 """
@@ -22,7 +19,7 @@ from selection_sort import selection_sort
 from selection_sort import selection_sort_new
 from insertion_sort import insertion_sort
 
-dataqueue = queue.Queue(maxsize=0)
+dataqueue = mp.Queue()
 
 
 # Print output table
@@ -41,12 +38,10 @@ def output(res_list, n):
 
 
 # Calculate result in threads
-def calculate(name, func, arrlist):
-    #print('Thread:', threading.current_thread())
-
+def calculate(name, func, arrlist, dqueue):
     # Without this deepcopy it will be the list of already sorted arrays.
     # We could use my_arr = arrlist[:] but the lists inside arrlist
-    # will be the same objects for each thread.
+    # will be the same objects for each process.
     # >>> lone = [[1, 2, 3], [5, 6, 7], [5, 5, 5]]
     # >>> ltwo = lone[:]
     # >>> lone is ltwo => False
@@ -57,30 +52,24 @@ def calculate(name, func, arrlist):
         t0 = time()
         func(arr)
         t1 = time()
-        dataqueue.put((name, t1 - t0))
+        dqueue.put((name, t1 - t0))
 
 
 def mult_compare(funclist=[(),], n=[10, 100, 1000, 10000]):
     funclist.append(('Built-In', sorted))                   # Append Built-In sorted func
     res_list = {name: [] for name, func in funclist}        # List of results
-    threads = []                                            # List of active threads
     arrlist = [create_array(i, i) for i in n]               # List of arrays
 
     # Start calculations in different threads
     for name, func in funclist:
-        thread = threading.Thread(target=calculate, args=(name, func, arrlist))
-        thread.start()
-        threads.append(thread)
+        proc = mp.Process(target=calculate, args=(name, func, arrlist, dataqueue))
+        proc.start()
 
-    # Get results until at least one thread is alive
-    while threads:
+    # Get results until at least one child proccess is alive
+    while mp.active_children():
         try:
             name, res = dataqueue.get(block=False)
             res_list[name].append(res)
-            # print(res_list)
-            # Check threads
-            threads = [thr for thr in threads if thr.is_alive()]
-            # print(threads)
         except queue.Empty:
             pass
 
