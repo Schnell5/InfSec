@@ -58,5 +58,3 @@ for func in (gen1, gen2, gen3):
     elapsed, ret = mytimer.timer(func, L)
     print('-'*30)
     print('{0:<9}: {1:.5f} => {2}'.format(func.__name__, elapsed, ret))
-
-
